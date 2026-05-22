@@ -492,7 +492,9 @@ void can_rx(uint8_t can_number) {
           send_lkas_command(&to_send_mod);
           can_send(&to_send_mod, 2, true);
         }
-        chrysler_wp();
+        if (addr == 284) { //veh_speed - gate wp msg at 50Hz, synced with speed spoof
+          chrysler_wp();
+        }
      }
 
      if (bus_number == 1) {
