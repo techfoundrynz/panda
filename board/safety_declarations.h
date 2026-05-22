@@ -90,6 +90,7 @@ typedef struct {
 } safety_hooks;
 
 void safety_tick(const safety_hooks *hooks);
+void can_send(CAN_FIFOMailBox_TypeDef *to_push, uint8_t bus_number, bool skip_tx_hook);
 
 // This can be set by the safety hooks
 bool controls_allowed = false;

@@ -239,9 +239,12 @@ static void send_wheel_button_msg(CAN_FIFOMailBox_TypeDef *to_fwd){
 }
 
 void chrysler_wp(void) {
-  CAN1->sTxMailBox[0].TDLR = 0x00;
-  CAN1->sTxMailBox[0].TDTR = 4;
-  CAN1->sTxMailBox[0].TIR = (0x4FFU << 21) | 1U;
+  CAN_FIFOMailBox_TypeDef to_send;
+  to_send.RDLR = 0x00;
+  to_send.RDHR = 0x00;
+  to_send.RDTR = 4;
+  to_send.RIR = (0x4FFU << 21) | 1U;
+  can_send(&to_send, 0, true);
 }
 
 int default_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
